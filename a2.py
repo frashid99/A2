@@ -17,16 +17,16 @@ class A2:
         A = np.array(A)
         b = np.array(b)
         
-        # Select rows based on the random binary vector
-        A_sum = np.sum(A[random_vector], axis=0) % p
-        b_sum = np.sum(b[random_vector]) % p
+        selected_rows = np.where(random_vector)[0]  
         
-        # Add floor(p/2) if message is 1
+        A_sum = np.sum(A[selected_rows], axis=0) % p
+        b_sum = np.sum(b[selected_rows]) % p
+        
         if message == 1:
             b_sum = (b_sum + (p // 2)) % p
         
-        return (A_sum, b_sum)
-    
+        return (A_sum, np.int64(b_sum)) 
+
     #Decrypts a message using the LWE algorithm.
     def decrypt(self, private_key, ciphertext, p):
         A_sum, b_sum = ciphertext
