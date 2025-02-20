@@ -35,4 +35,8 @@ class A2:
         computed_value = np.dot(A_sum, s) % p
         decrypted_value = (b_sum - computed_value) % p
         
-        return 1 if abs(decrypted_value - (p // 2)) < abs(decrypted_value - 0) else 0
+        if abs(decrypted_value - (p // 2)) < abs(decrypted_value - 0):
+            return 1
+        else:
+            return 0
+
